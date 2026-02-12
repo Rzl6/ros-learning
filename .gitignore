@@ -1,15 +1,48 @@
-# 忽略所有层级下的编译文件夹
+# === ROS 2 核心过滤 (针对你的嵌套工作空间) ===
 **/build/
 **/install/
 **/log/
 
-# 忽略 VS Code 的本地设置
+# === ROS 1 / General ROS 过滤 ===
+devel/
+logs/
+bin/
+lib/
+msg_gen/
+srv_gen/
+msg/*Action.msg
+msg/*ActionFeedback.msg
+msg/*ActionGoal.msg
+msg/*ActionResult.msg
+msg/*Feedback.msg
+msg/*Goal.msg
+msg/*Result.msg
+msg/_*.py
+build_isolated/
+devel_isolated/
+
+# === 配置文件与 IDE (VS Code, QtCreator, Eclipse) ===
 .vscode/
 **/ws*/.vscode/
+.project
+.cproject
+CMakeLists.txt.user
+qtcreator-*
+*.user
 
-# 忽略 Python 缓存
+# === Python 缓存与临时文件 ===
 __pycache__/
 *.pyc
-
-# 忽略 OS 产生的临时文件
+*.pyo
 .DS_Store
+*~
+.#*
+
+# === 其他 ROS 相关 ===
+*.cfgc
+/cfg/cpp/
+/cfg/*.py
+*.dox
+*.wikidoc
+*.pcd
+CATKIN_IGNORE
