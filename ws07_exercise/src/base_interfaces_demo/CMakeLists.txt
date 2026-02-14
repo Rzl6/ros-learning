@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(exe01_topic)
+project(base_interfaces_demo)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -8,38 +8,12 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(turtlesim REQUIRED)
-find_package(rclcpp_action REQUIRED)
 
-add_executable(ex01_mirror_control src/ex01_mirror_control.cpp)
-ament_target_dependencies(
-  ex01_mirror_control
-  "rclcpp"
-  "geometry_msgs"
-  "std_msgs"
-  "turtlesim"
+# 将.srv转换成对应的C++代码
+find_package(rosidl_default_generators REQUIRED)
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "srv/Distance.srv"
 )
-
-add_executable(ex02_mirror_control src/ex02_mirror_control.cpp)
-ament_target_dependencies(
-  ex02_mirror_control
-  "rclcpp"
-  "geometry_msgs"
-  "std_msgs"
-  "turtlesim"
-  "rclcpp_action"
-)
-
-install(TARGETS 
-  ex01_mirror_control
-  ex02_mirror_control
-  DESTINATION lib/${PROJECT_NAME})
-
-install(DIRECTORY 
-  launch 
-  DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

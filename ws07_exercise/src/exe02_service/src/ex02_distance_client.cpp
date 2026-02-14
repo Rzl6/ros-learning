@@ -1,34 +1,20 @@
-/*  
-  需求：编写客户端，发送两个整型变量作为请求数据，并处理响应结果。
-  步骤：
-    1.包含头文件；
-    2.初始化 ROS2 客户端；
-    3.定义节点类；
-      3-1.创建客户端；
-      3-2.等待服务连接；
-      3-3.组织请求数据并发送；
-    4.创建对象指针调用其功能,并处理响应；
-    5.释放资源。
-*/
-
-//引用头文件
 #include "rclcpp/rclcpp.hpp"
-#include "base_interfaces_demo/srv/add_ints.hpp"
+#include "turtlesim/msg/pose.hpp"
+#include "base_interfaces_demo/srv/distance.hpp" // 你刚才定义的接口
 
-using base_interfaces_demo::srv::AddInts;
-using namespace std::chrono_literals;
+
+using base_interfaces_demo::srv::Distance;
+using std::placeholders::_1;
+using std::placeholders::_2;
 
 //定义节点类
-class MinimalClient : public rclcpp::Node
-{
-    public:
-        MinimalClient()
-        : Node("minimal_client")
-        {
-            //创造客户端
-            client_ = this->create_client<AddInts>("add_ints");
-            RCLCPP_INFO(this->get_logger(), "客户端创建，等待连接服务器...");
-        }
+class DistanceServer : public rclcpp::Node {
+public:
+    DistanceServer() : Node("distance_server_node"), x1(0.0), y1(0.0){
+        //创造客户端
+        client_ = this->create_client<Distance>("add_ints");
+        RCLCPP_INFO(this->get_logger(), "客户端创建，等待连接服务器...");
+    }
     
         //等待服务连接
         bool connect_server()
