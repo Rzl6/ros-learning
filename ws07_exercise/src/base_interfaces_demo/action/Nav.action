@@ -1,0 +1,6 @@
+float32 goal_x
+float32 goal_y
+---
+bool is_arrive
+---
+float32 remain_distance
