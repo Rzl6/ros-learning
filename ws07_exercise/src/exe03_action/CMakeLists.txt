@@ -13,6 +13,35 @@ find_package(base_interfaces_demo REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(rclcpp_action REQUIRED)
 
+add_executable(ex01_nav_server src/ex01_nav_server.cpp)
+ament_target_dependencies(
+  ex01_nav_server
+  "rclcpp"
+  "base_interfaces_demo"
+  "turtlesim"
+  "rclcpp_action"
+  "geometry_msgs"
+)
+
+add_executable(ex02_nav_client src/ex02_nav_client.cpp)
+ament_target_dependencies(
+  ex02_nav_client
+  "rclcpp"
+  "base_interfaces_demo"
+  "turtlesim"
+  "rclcpp_action"
+  "geometry_msgs"
+)
+
+install(TARGETS 
+  ex01_nav_server
+  ex02_nav_client
+  DESTINATION lib/${PROJECT_NAME})
+
+install(DIRECTORY 
+  launch 
+  DESTINATION share/${PROJECT_NAME})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
